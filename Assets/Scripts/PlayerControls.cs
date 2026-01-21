@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
@@ -12,7 +11,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float moveHorizontal;
     [SerializeField] float moveVertical;
     [SerializeField] float speed = 4;
-    [SerializeField] float rotateSpeed = 4;
+    [SerializeField] float rotateSpeed = 1;
     [SerializeField] float jumpHeight = 1.2f;
     [SerializeField] bool isJumping;
 
@@ -30,6 +29,7 @@ public class PlayerControls : MonoBehaviour
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
+            isJumping = false;
         }
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -60,15 +60,6 @@ public class PlayerControls : MonoBehaviour
             if (isJumping==false)
             {
                 activeChar.GetComponent<Animator>().Play("Idle");
-            }
-        }
-
-        if (!groundedPlayer && playerVelocity.y < -2f)
-        {
-            this.gameObject.GetComponent<CharacterController>().minMoveDistance = 0.901f;
-            if(isJumping==false)
-            {
-                activeChar.GetComponent<Animator>().Play("Falling"); 
             }
         }
     }
