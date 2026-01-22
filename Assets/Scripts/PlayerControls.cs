@@ -36,7 +36,7 @@ public class PlayerControls : MonoBehaviour
         float curSpeed = speed * Input.GetAxis("Vertical");
         controller.SimpleMove(forward * curSpeed);
 
-        if(Input.GetButtonDown("Jump") && groundedPlayer)
+        if(Input.GetKey(KeyCode.Space) && groundedPlayer)
         {
             isJumping = true;
             activeChar.GetComponent<Animator>().Play("Jump");
