@@ -1,7 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Unity Generated Files - Linguist Overrides
 *.wlt linguist-vendored
 *.mat linguist-vendored
 *.meta linguist-vendored
+*.shader linguist-vendored
+*.cginc linguist-vendored
+*.hlsl linguist-vendored
+*.compute linguist-vendored
