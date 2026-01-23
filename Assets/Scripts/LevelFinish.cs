@@ -10,7 +10,7 @@ public class LevelFinish : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         playerControl.GetComponent<PlayerControls>().enabled = false;
-        playerControl.GetComponent<Animator>().Play("Falling");
+        playerControl.GetComponent<Animator>().Play("Bboy Hip Hop Move");
         levelBGM.SetActive(false);
         levelJingle.Play();
         fadeOut.SetActive(true);
