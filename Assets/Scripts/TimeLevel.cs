@@ -1,11 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimeLevel : MonoBehaviour
 {
     [SerializeField] GameObject timeBox;
-    [SerializeField] public static int timeLeft = 60;
+    [SerializeField] int timeLeft = 60;
     [SerializeField] bool takingSeconds = false;
+    [SerializeField] bool isRespawning = false;
+    [SerializeField] AudioSource timeUpSound;
+    [SerializeField] GameObject levelBGM;
+    [SerializeField] GameObject fadeOut;
+    [SerializeField] GameObject timeUp;
+    [SerializeField] GameObject playerControl;
 
     void Update()
     {
@@ -13,6 +20,19 @@ public class TimeLevel : MonoBehaviour
         if (takingSeconds == false)
         {
             StartCoroutine(RemoveSecond());
+        }
+        if (timeLeft == 0 && isRespawning == false)
+        {
+            isRespawning = true;
+            takingSeconds = true;
+            levelBGM.SetActive(false);
+            timeUpSound.Play();
+            fadeOut.SetActive(true);
+            timeUp.SetActive(true);
+            playerControl.GetComponent<PlayerControls>().enabled = false;
+            playerControl.GetComponent<Animator>().Play("Idle");
+            StartCoroutine(Respawn());
+
         }
     }
 
@@ -22,5 +42,11 @@ public class TimeLevel : MonoBehaviour
         yield return new WaitForSeconds(1);
         timeLeft -= 1;
         takingSeconds = false;
+    }
+
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(3);
     }
 }
